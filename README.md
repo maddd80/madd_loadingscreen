@@ -25,18 +25,19 @@ A highly optimized, premium Red Dead Redemption 2 / RedM loading screen. Built w
 
 ## ✨ Features
 
-- **🎨 Premium Aesthetic**: Immersive glassmorphism styling, backdrop blurs, and dynamic Emerald green accents.
+- **🎨 Premium Aesthetic**: Immersive glassmorphism styling, backdrop blurs, custom collegiate/western typography, and dynamic RGB theme colors.
+- **📑 Custom Popup Menus**: Server owners can easily add custom sidebar buttons (e.g., **Rules**, **Lore**, **Staff List**) with beautiful modal dropdowns right from the config.
 - **📰 Smart Announcement Feed**: Live Discord Sync with full Markdown parsing (headers, lists, bold text) OR a clean text-only manual fallback.
-- **⌨️ Realistic Keybinds Viewer**: Hover over bound keys to see sleek, matching tooltips.
-- **🎵 Music Player**: Built-in background music system with volume controls.
-- **💡 Dynamic Tips**: Rotating server tips to keep players informed while they load.
+- **⌨️ Realistic Keybinds Viewer**: Hover over bound keys on an authentic 75% mechanical keyboard layout to see sleek matching tooltips.
+- **🎵 Advanced Music Player**: Built-in multi-track background music system with volume sliders, mute toggle, and randomized playlist support.
+- **💡 Dynamic Tips & Socials**: Rotating server tips and clickable community links (Discord, Website, YouTube) to keep players engaged while they load.
 
 ---
 
 ## 🛠️ Full Installation Guide
 
 ### Prerequisites
-Before you begin, you **must** have [Node.js](https://nodejs.org/) installed on your computer to build the UI configuration.
+Before you begin, you **must** have [Node.js](https://nodejs.org/) installed on your computer if you plan to modify the Vue source code.
 
 ### Step 1: Resource Setup
 1. Download or clone the `madd_loadingscreen` folder.
@@ -47,47 +48,108 @@ Before you begin, you **must** have [Node.js](https://nodejs.org/) installed on 
    ```
 
 ### Step 2: Audio Setup
-1. Place your desired background music file (e.g., `.ogg` or `.mp3`) into the `ui/public/assets/audio/` folder.
-2. We recommend naming it `loading_music.ogg` for consistency.
+1. Place your desired background music files (e.g., `.mp3` or `.ogg`) into the `ui/public/assets/music/` folder.
+2. Open `ui/public/config.js` (or `html/config.js`) and add your tracks to the `config.music.list` array.
 
 ### Step 3: Configuration
-1. Open `html/config.js` in a text editor (like VS Code).
-2. Edit your server name, keybinds, tips, and other settings.
+1. Open `ui/public/config.js` (or `html/config.js`) in a text editor (like VS Code).
+2. Edit your server name, custom menus, keybinds, music, tips, and other settings.
 3. Save the file and restart the resource in your server. **No rebuild is required for config changes!**
 
 ---
 
-## ⚙️ Configuration Reference (`html/config.js`)
+## ⚙️ Configuration Reference (`ui/public/config.js`)
 
-The configuration uses a global `window.config` object. Do not remove the `window.config =` line.
+The configuration uses a categorized global `window.config` object for maximum modularity and ease of maintenance.
 
 ```javascript
 window.config = {
-    serverName: "Your Server Name",
-    loadingMusic: "assets/audio/loading_music.ogg", 
-    
-    // Rotating tips
-    tips: [
-        "Visit our Discord for help and updates.",
-        "Horses are your most loyal companions in the Wild West."
-    ],
-    tipInterval: 4000,
+    // 1. GENERAL & HEADER
+    header: {
+        serverName: "Madd's Stuff",
+        logo: "./assets/img/logo.png",
+        welcomeText: "Welcome, %s", // %s replaced with player name
+        loadingText: "Loading Server..."
+    },
 
-    // Server keybinds mapping
+    // 2. APPEARANCE & STYLING
+    appearance: {
+        colors: {
+            primary: "#B12A2A", // Hex color (converts to RGB automatically)
+            text: "#FFFFFF",
+            background: "#000000",
+            overlay: "rgba(0, 0, 0, 0.1)"
+        }
+    },
+
+    // 3. BACKGROUND MEDIA
+    background: {
+        type: "slideshow", // "video", "youtube", "image", "slideshow"
+        video: { path: "./assets/video/background-video.mp4" },
+        image: { path: "./assets/img/background_1.png" },
+        slideshow: {
+            enabled: true,
+            duration: 5000, // ms per slide
+            images: [
+                "./assets/img/background_1.png",
+                "./assets/img/background_2.png"
+            ]
+        }
+    },
+
+    // 4. MUSIC PLAYER
+    music: {
+        enabled: true,
+        defaultVolume: 0.1, // 0.0 to 1.0
+        randomize: true,
+        list: [
+            { name: "Track 1", path: "./assets/music/music1.mp3" },
+            { name: "Track 2", path: "./assets/music/music2.mp3" }
+        ]
+    },
+
+    // 5. ROTATING TIPS
+    tips: {
+        interval: 5000,
+        list: [
+            "Visit our Discord for help and updates.",
+            "Horses are your most loyal companions in the Wild West."
+        ]
+    },
+
+    // 6. SOCIAL LINKS
+    socials: {
+        discord: "https://discord.gg/yourinvite",
+        website: "https://yourwebsite.com",
+        youtube: "https://youtube.com/yourchannel"
+    },
+
+    // 7. SERVER KEYBINDS
     keybinds: [
         { label: "Inventory", key: "I" },
         { label: "Interaction", key: "G" }
     ],
 
-    // Discord Integration Toggle
-    useDiscordNews: false, 
-    discordNewsEndpoint: "https://your-domain.com/discord-news.php",
+    // 8. SERVER NEWS & ANNOUNCEMENTS
+    news: {
+        useDiscord: true,
+        discordEndpoint: "https://discord-news.maddstuffs.com/proxy.php",
+        items: [
+            { date: "07-05-2026", content: "Manual fallback news item..." }
+        ]
+    },
 
-    // Manual News (Used if Discord is disabled)
-    serverNews: [
+    // 9. CUSTOM POPUP MENUS & BUTTONS
+    customMenus: [
         {
-            date: "07-05-2026",
-            content: "We've just pushed a new update to the horse system! 🐎"
+            id: "rules",
+            buttonLabel: "Server Rules",
+            buttonIcon: "fa-solid fa-scroll",
+            title: "📜 County Rules & Laws",
+            description: "Please read and adhere to our community guidelines.",
+            content: [
+                { title: "1. Respect & Courtesy", text: "Treat all players with respect..." }
+            ]
         }
     ]
 };
