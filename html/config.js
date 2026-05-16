@@ -114,7 +114,7 @@ window.config = {
     // ==========================================
     news: {
         // If true, fetches live announcements from Discord via your endpoint
-        useDiscord: false,
+        useDiscord: true,
         discordEndpoint: "https://discord-news.maddstuffs.com/discord-news.php",
         discordHeaders: {},
 
@@ -129,5 +129,36 @@ window.config = {
                 content: "The poker tournament has been moved to this Sunday at 8 PM. Make sure to sign up at the saloon! ♠️"
             }
         ]
-    }
+    },
+
+    // ==========================================
+    // 9. CUSTOM POPUP MENUS & BUTTONS
+    // ==========================================
+    // Allows server owners to create custom popup menus (e.g., Rules, Staff, Lore, VIP)
+    customMenus: [
+        {
+            id: "rules",
+            buttonLabel: "Server Rules",
+            buttonIcon: "fa-solid fa-scroll", // FontAwesome icon
+            title: "📜 County Rules & Laws",
+            description: "Please read and adhere to our community guidelines while in the county.",
+            content: [
+                { title: "1. Respect & Courtesy", text: "Treat all players with respect. Harassment, hate speech, and toxicity will result in a permanent ban." },
+                { title: "2. Value of Life (NVL)", text: "Your character values their life. If you are held at gunpoint at close range, you must comply." },
+                { title: "3. Random Deathmatch (RDM)", text: "Killing another player without valid roleplay initiation or storyline reason is strictly prohibited." },
+                { title: "4. Exploits & Bugs", text: "Using game exploits, dupes, or third-party crosshairs/software is strictly forbidden." }
+            ]
+        },
+        {
+            id: "lore",
+            buttonLabel: "Server Lore",
+            buttonIcon: "fa-solid fa-book-open",
+            title: "📖 The Frontier Lore",
+            description: "Welcome to New Hanover, 1899. A land of opportunity, outlaws, and untamed wilderness.",
+            content: [
+                { title: "The Setting", text: "The year is 1899. The age of outlaws and gunslingers is at an end. As civilization spreads across the frontier, those who refuse to adapt are hunted down." },
+                { title: "Economy & Trade", text: "Our county operates on a realistic, player-driven economy. Visit the towns of Valentine, Saint Denis, and Rhodes for work and commerce." }
+            ]
+        }
+    ]
 };
