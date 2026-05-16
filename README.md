@@ -1,6 +1,6 @@
 # madd_loadingscreen 🐎
 
-A highly optimized, premium Red Dead Redemption 2 / RedM loading screen. Built with **Vue 3**, **Vite**, and designed with a stunning "Deep Emerald & Glassmorphism" aesthetic.
+A highly optimized, premium Red Dead Redemption 2 / RedM loading screen. Built with **Vue 3**, **Vite**, and designed with a stunning aesthetic.
 
 ![Loading Screen Preview](https://cdn.discordapp.com/attachments/1404618353162846422/1505085347502096536/image.png?ex=6a095775&is=6a0805f5&hm=3a0666cf4c0df542cbcf7cf2c2d2c78ec6b07e03205e10cd3aec3a0620f7cf15&)
 
